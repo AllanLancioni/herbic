@@ -1,129 +1,228 @@
-{% extends "base.html" %}
+<html>
 
-{% block content %}
-	<h1><u>Recomendações de Tratamentos</u></h1>
-	<p>Selecione as características da área e matologia.</p>
-	<form id="configConsulta" name="configConsulta" method="POST" action="{{ url_for('sugestoes_de_tratamento_func') }}">
-		<fieldset>
-			<legend><h2>Modalidade</h2></legend>
-			<label for="modalidade">Selecione a modalidade:</label>
-			<select name="modalidade" id="select_modalidade" required>
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="ppi">PPI</option>
-				<option value="preMPB">Pré-MPB</option>
-				<option value="posMPB">Pós-MPB</option>
-				<option value="canaSoca">Cana Soca</option>
-				<option value="canaPlanta">Cana Planta</option>
-				<option value="quebraLombo">Quebra Lombo</option>
-				<option value="sequencial">Sequencial</option>
-				<option value="dessecaDesinfesta">Dessecação/Desinfestação</option>
-			</select><br><br>
-		</fieldset>
-		<fieldset>
-			<legend><h2>Características da Área e do Plantio</h2></legend>
-			<label for="teorMatOrg">Teor de matéria orgânica no solo:</label>
-			<select name="teorMatOrg" id="select_teorMatOrg" required>
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="Pouca">Pouca</option>
-				<option value="Media">Média</option>
-				<option value="Alta">Alta</option>
-			</select><br><br>
-			<label for="texturaSolo">Textura do solo:</label>
-			<select name="texturaSolo" id="select_texturaSolo" required>
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="Leve">Leve</option>
-				<option value="Medio">Média</option>
-				<option value="Pesado">Pesada</option>
-			</select><br><br>
-			<label for="epoca" class="epoca">Época:</label>
-			<select name="epoca" class="epoca" id="select_epoca">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="EpocaUmida">Úmida</option>
-				<option value="EpocaSemiUmida">Semi-Úmida</option>
-				<option value="EpocaSemiSeca">Semi-Seca</option>
-				<option value="EpocaSeca">Seca</option>
-			</select><br class="epoca"><br class="epoca">
-			<label for="estadioCana" class="estadioCana">Estádio da Cana:</label>
-			<select name="estadioCana" id="select_estadioCana" class="estadioCana">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="1">Pré-emergente</option>
-				<option value="2">Até 2 folhas</option>
-				<option value="3">2 a 4 folhas</option>
-				<option value="4">Acima de 4 folhas</option>
-			</select><br class="estadioCana"><br class="estadioCana">
-			<label for="varSensivel" class="varSensivel">Variedade de Cana Sensível:</label>
-			<select name="varSensivel" id="select_varSensivel" class="varSensivel">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="varSensivel"><br class="varSensivel">
-			<label for="palha" class="palha">Presença de palha:</label>
-			<select name="palha" id="select_palha" class="palha">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="palha"><br class="palha">
-			<label for="novaCultura" class="novaCultura">Planos de outra cultura em seguida:</label>
-			<select name="novaCultura" id="select_novaCultura" class="novaCultura">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="novaCultura"><br class="novaCultura">
-			<label for="incorp" class="incorp">Houve Incorporação:</label>
-			<select name="incorp" id="select_incorp" class="incorp">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="incorp"><br class="incorp">
-			<label for="revolvimento" class="revolvimento">Houve revolvimento no preparo do solo:</label>
-			<select name="revolvimento" id="select_revolvimento" class="revolvimento">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="revolvimento"><br class="revolvimento">
-			<label for="areaRestrita" class="areaRestrita">Restrições na área:</label>
-			<select name="areaRestrita" id="select_areaRestrita" class="areaRestrita">
-				<option disabled selected value> -- Selecione -- </option>
-				<option value="sim">Sim</option>
-				<option value="nao">Não</option>
-			</select><br class="areaRestrita"><br class="areaRestrita">
-			<label for="plantioDias" class="plantioDias">Dias entre a aplicação e o próximo plantio:</label>
-			<input type="number" id="plantioDias" class="plantioDias" name="plantioDias" min="1" max="600" placeholder="30" step="1"><br class="plantioDias"><br class="plantioDias">
-			<label for="catacao" class="catacao">Custo da Catação:</label>
-			<b>R$ </b><input type="number" id="catacao" name="catacao" min="30.0" max="5000.0" placeholder="450.0" required> por ha
-		</fieldset>
-		<br>
-		<fieldset>
-			<legend><h2>Configuração de Eficiência Mínima para Matos Pré-emergentes por Pressão</h2></legend>
-			<label for="BaixaPressaoEfMin">Pressão Baixa:</label>
-			<input type="number" id="BaixaPressaoEfMin" name="BaixaPressaoEfMin" min="0" max="99.9" placeholder="80.0" required step="0.5"> <b>%</b><br><br>
-			<label for="MediaPressaoEfMin">Pressão Média:</label>
-			<input type="number" id="MediaPressaoEfMin" name="MediaPressaoEfMin" min="0" max="99.9" placeholder="90.0" required step="0.5"> <b>%</b><br><br>
-			<label for="AltaPressaoEfMin">Pressão Alta:</label>
-			<input type="number" id="AltaPressaoEfMin" name="AltaPressaoEfMin" min="0" max="99.9" placeholder="95.0" required step="0.5"> <b>%</b><br><br>
-		</fieldset>
-		<fieldset>
-			<legend><h2>Configuração de Eficiência Mínima para Matos Pós-emergentes caso haja</h2></legend>
-			<label for="eMinPos">Eficiência Mínima:</label>
-			<input type="number" id="eMinPos" name="eMinPos" min="0" max="99.9" placeholder="95.0" required step="0.5"> <b>%</b><br><br>
-		</fieldset>
-		<fieldset> 
-			<legend><h2>Matologia</h2></legend>
-			<label for="matos">Selecione um mato:</label>
-			<select name="matos" id="select_matos">
-			 		<option disabled selected value id="errada"> -- Selecione-- </option>
-			 	{% for mato in matos %}
-			 		<option value={{ mato }}>{{ mato }}</option>
-			 	{% endfor %}
-			</select>
-			 <button type="button" onclick="addMato()">Adicionar</button> 
-			 <button type="button" onclick="removeMato()">Remover</button>
-			 <button type="button" onclick="resetForm()">Limpar tudo</button>
-		</fieldset><br><br>
-		<div id="selecaoMatos"></div>
-		<input type="submit" id="submiter" value="Sugestões de Tratamento" style="display: none;"><br><br><br><br>
-	</form>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="{{url_for('static', filename='formsNovo.js')}}"></script>
-	<script type="text/javascript" src="{{url_for('static', filename='formz.js')}}"></script>
-{% endblock %}
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <!-- Import VUE.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+
+    <!-- Import custom style -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="page-header bg-info"></div>
+    <div>
+
+        <div class="container mx-auto" id="app">
+            <div class="card p-4 shadow">
+                <h1 class="h2">Recomendações de Tratamentos</h1>
+                <p class="text-muted">Selecione as características da área e matologia.</p>
+                <hr>
+                <form id="configConsulta" name="configConsulta" @submit="checkForm" method="POST"
+                    action="{{ url_for('sugestoes_de_tratamento_func') }}">
+                    <fieldset>
+                        <legend>Modalidade</legend>
+                        <div class="form-group form-inline">
+                            <label for="modalidade">Selecione a modalidade:</label>
+                            <select name="modalidade" id="select_modalidade" class="form-control ml-2"
+                                v-model="modalidade" required>
+                                <option disabled value>Selecione</option>
+                                <option value="ppi">PPI</option>
+                                <option value="preMPB">Pré-MPB</option>
+                                <option value="posMPB">Pós-MPB</option>
+                                <option value="canaSoca">Cana Soca</option>
+                                <option value="canaPlanta">Cana Planta</option>
+                                <option value="quebraLombo">Quebra Lombo</option>
+                                <option value="sequencial">Sequencial</option>
+                                <option value="dessecaDesinfesta">Dessecação/Desinfestação</option>
+                            </select><br><br>
+                        </div>
+                    </fieldset>
+                    <hr>
+                    <fieldset>
+                        <legend>
+                            <h2>Características da Área e do Plantio</h2>
+                        </legend>
+                        <div class="row">
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="teorMatOrg">Teor de matéria orgânica no solo:</label>
+                                <select class="form-control" name="teorMatOrg" id="select_teorMatOrg" required>
+                                    <option disabled selected value> Selecione </option>
+                                    <option value="Pouca">Pouca</option>
+                                    <option value="Media">Média</option>
+                                    <option value="Alta">Alta</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="texturaSolo">Textura do solo:</label>
+                                <select class="form-control" name="texturaSolo" id="select_texturaSolo" required>
+                                    <option disabled selected value> Selecione </option>
+                                    <option value="Leve">Leve</option>
+                                    <option value="Medio">Média</option>
+                                    <option value="Pesado">Pesada</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="epoca" class="epoca">Época:</label>
+                                <select name="epoca" class="form-control" id="select_epoca">
+                                    <option disabled selected value> Selecione </option>
+                                    <option value="EpocaUmida">Úmida</option>
+                                    <option value="EpocaSemiUmida">Semi-Úmida</option>
+                                    <option value="EpocaSemiSeca">Semi-Seca</option>
+                                    <option value="EpocaSeca">Seca</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="estadioCana" class="estadioCana">Estádio da Cana:</label>
+                                <select name="estadioCana" class="form-control" id="select_estadioCana"
+                                    class="estadioCana">
+                                    <option disabled selected value> Selecione </option>
+                                    <option value="1">Pré-emergente</option>
+                                    <option value="2">Até 2 folhas</option>
+                                    <option value="3">2 a 4 folhas</option>
+                                    <option value="4">Acima de 4 folhas</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="varSensivel" class="varSensivel">Variedade de Cana Sensível:</label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="varSensivel" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="varSensivel" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="palha" class="palha">Presença de palha:</label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="palha" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="palha" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="novaCultura" class="novaCultura">Planos de outra cultura em seguida:</label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="novaCultura" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="novaCultura" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="incorp" class="incorp">Houve Incorporação:</label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="incorp" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="incorp" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="revolvimento" class="revolvimento">
+                                    Houve revolvimento no preparo do solo:
+                                </label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="revolvimento" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="revolvimento" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="areaRestrita" class="areaRestrita">Restrições na área:</label>
+                                <div class="d-flex">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="areaRestrita" value="sim"
+                                            checked>
+                                        <label class="form-check-label">Sim</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="areaRestrita" value="nao"
+                                            checked>
+                                        <label class="form-check-label">Não</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="plantioDias" class="plantioDias">
+                                    Dias entre a aplicação e o próximo plantio:
+                                </label>
+                                <input type="number" class="form-control" id="plantioDias" class="plantioDias"
+                                    name="plantioDias" min="1" max="600" placeholder="30" step="1"><br
+                                    class="plantioDias"><br class="plantioDias">
+
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label for="catacao" class="catacao">Custo da Catação:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">R$</span>
+                                    </div>
+                                    <input type="number" id="catacao" name="catacao" min="30.0" max="5000.0"
+                                        placeholder="450.0" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">por ha</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script src="./script.js"></script>
+
+</html>

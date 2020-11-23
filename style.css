@@ -1,0 +1,12 @@
+.container {
+    margin: 4rem 0 1rem;
+}
+
+.page-header {
+    height: 300px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 0;
+
+}
