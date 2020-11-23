@@ -142,6 +142,7 @@ var app = new Vue({
     },
 
     addMato() {
+      if(this.selectedMato == null) return
       if (this.matosArray.some((x) => this.selectedMato === x.name)) return;
       this.matosArray.push({
         name: this.selectedMato,
