@@ -35,8 +35,8 @@
                         <legend>Modalidade</legend>
                         <div class="form-group form-inline">
                             <label for="modalidade">Selecione a modalidade:</label>
-                            <select name="modalidade" id="select_modalidade" class="form-control ml-2"
-                                v-model="modalidade" required>
+                            <select name="modalidade" id="modalidade" class="form-control ml-2" v-model="modalidade"
+                                required>
                                 <option disabled value>Selecione</option>
                                 <option value="ppi">PPI</option>
                                 <option value="preMPB">Pré-MPB</option>
@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-12 col-md-6 form-group">
                                 <label for="teorMatOrg">Teor de matéria orgânica no solo:</label>
-                                <select class="form-control" name="teorMatOrg" id="select_teorMatOrg" required>
+                                <select class="form-control" name="teorMatOrg" id="teorMatOrg" required>
                                     <option disabled selected value> Selecione </option>
                                     <option value="Pouca">Pouca</option>
                                     <option value="Media">Média</option>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-12 col-md-6 form-group">
                                 <label for="texturaSolo">Textura do solo:</label>
-                                <select class="form-control" name="texturaSolo" id="select_texturaSolo" required>
+                                <select class="form-control" name="texturaSolo" id="texturaSolo" required>
                                     <option disabled selected value> Selecione </option>
                                     <option value="Leve">Leve</option>
                                     <option value="Medio">Média</option>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-12 col-md-6 form-group">
                                 <label for="epoca" class="epoca">Época:</label>
-                                <select name="epoca" class="form-control" id="select_epoca">
+                                <select name="epoca" class="form-control" id="epoca">
                                     <option disabled selected value> Selecione </option>
                                     <option value="EpocaUmida">Úmida</option>
                                     <option value="EpocaSemiUmida">Semi-Úmida</option>
@@ -85,8 +85,7 @@
                             </div>
                             <div class="col-12 col-md-6 form-group">
                                 <label for="estadioCana" class="estadioCana">Estádio da Cana:</label>
-                                <select name="estadioCana" class="form-control" id="select_estadioCana"
-                                    class="estadioCana">
+                                <select name="estadioCana" class="form-control" id="estadioCana" class="estadioCana">
                                     <option disabled selected value> Selecione </option>
                                     <option value="1">Pré-emergente</option>
                                     <option value="2">Até 2 folhas</option>
@@ -99,14 +98,14 @@
                                 <label for="varSensivel" class="varSensivel">Variedade de Cana Sensível:</label>
                                 <div class="d-flex">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="varSensivel" value="sim"
-                                            checked>
-                                        <label class="form-check-label">Sim</label>
+                                        <input class="form-check-input" type="radio" name="varSensivel"
+                                            id="varSensivel_sim" value="sim">
+                                        <label class="form-check-label" for="varSensivel_sim">Sim</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="varSensivel" value="nao"
-                                            checked>
-                                        <label class="form-check-label">Não</label>
+                                        <input class="form-check-input" type="radio" name="varSensivel"
+                                            id="varSensivel_nao" value="nao">
+                                        <label class="form-check-label" for="varSensivel_nao">Não</label>
                                     </div>
                                 </div>
                             </div>
@@ -114,14 +113,14 @@
                                 <label for="palha" class="palha">Presença de palha:</label>
                                 <div class="d-flex">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="palha" value="sim"
-                                            checked>
-                                        <label class="form-check-label">Sim</label>
+                                        <input class="form-check-input" id="palha_sim" type="radio" name="palha"
+                                            value="sim">
+                                        <label class="form-check-label" for="palha_sim">Sim</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="palha" value="nao"
-                                            checked>
-                                        <label class="form-check-label">Não</label>
+                                        <input class="form-check-input" id="palha_nao" type="radio" name="palha"
+                                            value="nao">
+                                        <label class="form-check-label" for="palha_nao">Não</label>
                                     </div>
                                 </div>
                             </div>
@@ -129,29 +128,29 @@
                                 <label for="novaCultura" class="novaCultura">Planos de outra cultura em seguida:</label>
                                 <div class="d-flex">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="novaCultura" value="sim"
-                                            checked>
-                                        <label class="form-check-label">Sim</label>
+                                        <input class="form-check-input" id="novaCultura_sim" type="radio"
+                                            name="novaCultura" value="sim">
+                                        <label class="form-check-label" for="novaCultura_sim">Sim</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="novaCultura" value="nao"
-                                            checked>
-                                        <label class="form-check-label">Não</label>
+                                        <input class="form-check-input" id="novaCultura_nao" type="radio"
+                                            name="novaCultura" value="nao">
+                                        <label class="form-check-label" for="novaCultura_nao">Não</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 form-group">
-                                <label for="incorp" class="incorp">Houve Incorporação:</label>
+                                <label class="incorp">Houve Incorporação:</label>
                                 <div class="d-flex">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="incorp" value="sim"
-                                            checked>
-                                        <label class="form-check-label">Sim</label>
+                                        <input class="form-check-input" id="incorp_sim" type="radio" name="incorp"
+                                            value="sim">
+                                        <label class="form-check-label" for="incorp_sim">Sim</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="incorp" value="nao"
-                                            checked>
-                                        <label class="form-check-label">Não</label>
+                                        <input class="form-check-input" id="incorp_nao" type="radio" name="incorp"
+                                            value="nao">
+                                        <label class="form-check-label" for="incorp_nao">Não</label>
                                     </div>
                                 </div>
                             </div>
@@ -161,14 +160,14 @@
                                 </label>
                                 <div class="d-flex">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="revolvimento" value="sim"
-                                            checked>
-                                        <label class="form-check-label">Sim</label>
+                                        <input class="form-check-input" id="revolvimento_sim" type="radio"
+                                            name="revolvimento" value="sim">
+                                        <label class="form-check-label" for="revolvimento_sim">Sim</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="revolvimento" value="nao"
-                                            checked>
-                                        <label class="form-check-label">Não</label>
+                                        <input class="form-check-input" id="revolvimento_nao" type="radio"
+                                            name="revolvimento" value="nao">
+                                        <label class="form-check-label" for="revolvimento_nao">Não</label>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +185,7 @@
                                         <label class="form-check-label">Não</label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-12 col-md-6 form-group">
                                 <label for="plantioDias" class="plantioDias">
@@ -213,7 +212,52 @@
                             </div>
                         </div>
 
+                    </fieldset>
+                    <hr>
+                    <fieldset>
+                        <legend>Configuração de Eficiência Mínima para Matos Pré-emergentes por Pressão</legend>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="BaixaPressaoEfMin">Pressão Baixa:</label>
+                                <div class="input-group">
+                                    <input type="number" id="BaixaPressaoEfMin" name="BaixaPressaoEfMin" min="0" max="99.9"
+                                    placeholder="80.0" required step="0.5">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <label for="MediaPressaoEfMin">Pressão Média:</label>
+                        <input type="number" id="MediaPressaoEfMin" name="MediaPressaoEfMin" min="0" max="99.9"
+                            placeholder="90.0" required step="0.5"> <b>%</b><br><br>
+                        <label for="AltaPressaoEfMin">Pressão Alta:</label>
+                        <input type="number" id="AltaPressaoEfMin" name="AltaPressaoEfMin" min="0" max="99.9"
+                            placeholder="95.0" required step="0.5"> <b>%</b><br><br>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <h2>Configuração de Eficiência Mínima para Matos Pós-emergentes caso haja</h2>
+                        </legend>
+                        <label for="eMinPos">Eficiência Mínima:</label>
+                        <input type="number" id="eMinPos" name="eMinPos" min="0" max="99.9" placeholder="95.0" required
+                            step="0.5"> <b>%</b><br><br>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <h2>Matologia</h2>
+                        </legend>
+                        <label for="matos">Selecione um mato:</label>
+                        <select name="matos" id="select_matos">
+                            <option disabled selected value id="errada"> -- Selecione-- </option>
+                            {% for mato in matos %}
+                            <option value={{ mato }}>{{ mato }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="button" onclick="addMato()">Adicionar</button>
+                        <button type="button" onclick="removeMato()">Remover</button>
+                        <button type="button" onclick="resetForm()">Limpar tudo</button>
                     </fieldset>
 
                 </form>
