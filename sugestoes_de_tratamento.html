@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+cada trat = [nome, mols, precoTotal]
+cada mol = [nome, dose, ppl, preco_dose]
+
+{% block content %}
+	<h1><u>Resultado da Consulta de Recomendações de Tratamento:</u></h1>
+	<p>Listados do menor ao maior preço total.</p><br>
+		{% for trat in lisTrats %}
+			<div>
+				<h2><u>{{ trat[0] }}</u> :</h2>
+				{% for mol in trat[1] %}
+					<p><u>{{ mol[0] }}</u>: Preço por litro R$ {{ mol[2] }}, Dose Recomendada: {{ mol[1] }} litro(s), Preço total da dose: R$ {{ mol[3] }}</p>
+				{% endfor %}
+				<p><b>Valor Total do Tratamento: </b>R$ {{ trat[2] }}</p><br>
+			</div>
+		{% endfor %}
+{% endblock %}
