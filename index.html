@@ -58,7 +58,7 @@
                                 <div class="col-12 col-md-6 form-group" v-show="show.teorMatOrg">
                                     <label for="teorMatOrg">Teor de matéria orgânica no solo:</label>
                                     <select class="form-control" v-model="teorMatOrg" name="teorMatOrg" id="teorMatOrg">
-                                        <option disabled selected value>Selecione</option>
+                                        <option disabled selected value="null">Selecione</option>
                                         <option value="Pouca">Pouca</option>
                                         <option value="Media">Média</option>
                                         <option value="Alta">Alta</option>
@@ -68,7 +68,7 @@
                                     <label for="texturaSolo">Textura do solo:</label>
                                     <select class="form-control" v-model="texturaSolo" name="texturaSolo"
                                         id="texturaSolo">
-                                        <option disabled selected value>Selecione</option>
+                                        <option disabled selected value="null">Selecione</option>
                                         <option value="Leve">Leve</option>
                                         <option value="Medio">Média</option>
                                         <option value="Pesado">Pesada</option>
@@ -77,7 +77,7 @@
                                 <div class="col-12 col-md-6 form-group" v-show="show.epoca">
                                     <label for="epoca" class="epoca">Época:</label>
                                     <select name="epoca" v-model="epoca" class="form-control" id="epoca">
-                                        <option disabled selected value>Selecione</option>
+                                        <option disabled selected value="null">Selecione</option>
                                         <option value="EpocaUmida">Úmida</option>
                                         <option value="EpocaSemiUmida">Semi-Úmida</option>
                                         <option value="EpocaSemiSeca">Semi-Seca</option>
@@ -88,7 +88,7 @@
                                     <label for="estadioCana" class="estadioCana">Estádio da Cana:</label>
                                     <select name="estadioCana" v-model="estadioCana" class="form-control"
                                         id="estadioCana" class="estadioCana">
-                                        <option disabled selected value>Selecione</option>
+                                        <option disabled selected value="null">Selecione</option>
                                         <option value="1">Pré-emergente</option>
                                         <option value="2">Até 2 folhas</option>
                                         <option value="3">2 a 4 folhas</option>
@@ -222,7 +222,6 @@
                                         <option disabled selected value id="errada">
                                             Selecione
                                         </option>
-                                        
                                     </select>
                                     <div class="text-right input-group-append">
                                         <button type="button" class="btn btn-outline-success" @click="addMato()">
@@ -238,7 +237,7 @@
                         <div class="row">
                             <div v-for="mato in matosArray" class="col-12 col-md-6" :id="mato">
                                 <div class="card p-3">
-                                    <h5>{{mato.name}}</h5>
+                                    <h5 v-html="mato.name"></h5>
 
                                     <div class="form-group">
                                         <label :for="'pre_' + mato.name"><b>Pré</b></label>
