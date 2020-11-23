@@ -46,14 +46,12 @@
                                 <option value="quebraLombo">Quebra Lombo</option>
                                 <option value="sequencial">Sequencial</option>
                                 <option value="dessecaDesinfesta">Dessecação/Desinfestação</option>
-                            </select><br><br>
+                            </select>
                         </div>
                     </fieldset>
                     <hr>
                     <fieldset>
-                        <legend>
-                            <h2>Características da Área e do Plantio</h2>
-                        </legend>
+                        <legend>Características da Área e do Plantio</legend>
                         <div class="row">
                             <div class="col-12 col-md-6 form-group">
                                 <label for="teorMatOrg">Teor de matéria orgânica no solo:</label>
@@ -192,9 +190,7 @@
                                     Dias entre a aplicação e o próximo plantio:
                                 </label>
                                 <input type="number" class="form-control" id="plantioDias" class="plantioDias"
-                                    name="plantioDias" min="1" max="600" placeholder="30" step="1"><br
-                                    class="plantioDias"><br class="plantioDias">
-
+                                    name="plantioDias" min="1" max="600" placeholder="30" step="1">
                             </div>
                             <div class="col-12 col-md-6 form-group">
                                 <label for="catacao" class="catacao">Custo da Catação:</label>
@@ -204,7 +200,7 @@
                                         <span class="input-group-text" id="basic-addon1">R$</span>
                                     </div>
                                     <input type="number" id="catacao" name="catacao" min="30.0" max="5000.0"
-                                        placeholder="450.0" required>
+                                        placeholder="450.0" required class="form-control">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">por ha</span>
                                     </div>
@@ -220,8 +216,28 @@
                             <div class="col-12 col-lg-4 form-group">
                                 <label for="BaixaPressaoEfMin">Pressão Baixa:</label>
                                 <div class="input-group">
-                                    <input type="number" id="BaixaPressaoEfMin" name="BaixaPressaoEfMin" min="0" max="99.9"
-                                    placeholder="80.0" required step="0.5">
+                                    <input type="number" id="BaixaPressaoEfMin" name="BaixaPressaoEfMin" min="0"
+                                        max="99.9" placeholder="80" step="0.5" class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="MediaPressaoEfMin">Pressão Média:</label>
+                                <div class="input-group">
+                                    <input type="number" id="MediaPressaoEfMin" name="MediaPressaoEfMin" min="0"
+                                        max="99.9" placeholder="90" step="0.5" class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="AltaPressaoEfMin">Pressão Alta:</label>
+                                <div class="input-group">
+                                    <input type="number" id="AltaPressaoEfMin" name="AltaPressaoEfMin" min="0"
+                                        max="99.9" placeholder="95" step="0.5" class="form-control">
                                     <div class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -229,25 +245,25 @@
                             </div>
                         </div>
 
-                        <label for="MediaPressaoEfMin">Pressão Média:</label>
-                        <input type="number" id="MediaPressaoEfMin" name="MediaPressaoEfMin" min="0" max="99.9"
-                            placeholder="90.0" required step="0.5"> <b>%</b><br><br>
-                        <label for="AltaPressaoEfMin">Pressão Alta:</label>
-                        <input type="number" id="AltaPressaoEfMin" name="AltaPressaoEfMin" min="0" max="99.9"
-                            placeholder="95.0" required step="0.5"> <b>%</b><br><br>
                     </fieldset>
+                    <hr>
                     <fieldset>
-                        <legend>
-                            <h2>Configuração de Eficiência Mínima para Matos Pós-emergentes caso haja</h2>
-                        </legend>
-                        <label for="eMinPos">Eficiência Mínima:</label>
-                        <input type="number" id="eMinPos" name="eMinPos" min="0" max="99.9" placeholder="95.0" required
-                            step="0.5"> <b>%</b><br><br>
+                        <legend>Configuração de Eficiência Mínima para Matos Pós-emergentes caso haja</legend>
+
+                        <div class="form-group">
+                            <label for="AltaPressaoEfMin">Eficiência Mínima:</label>
+                            <div class="input-group">
+                                <input type="number" id="eMinPos" name="eMinPos" min="0" max="99.9" placeholder="95.0"
+                                    required step="0.5" class="form-control">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
                     </fieldset>
+                    <hr>
                     <fieldset>
-                        <legend>
-                            <h2>Matologia</h2>
-                        </legend>
+                        <legend>Matologia</legend>
                         <label for="matos">Selecione um mato:</label>
                         <select name="matos" id="select_matos">
                             <option disabled selected value id="errada"> -- Selecione-- </option>
