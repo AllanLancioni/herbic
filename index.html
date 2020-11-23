@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <html>
 
 <head>
@@ -31,7 +34,8 @@
                     Selecione as características da área e matologia.
                 </p>
                 <hr />
-                <form id="configConsulta" name="configConsulta" @submit="checkForm" method="POST">
+                <form id="configConsulta" name="configConsulta" @submit="checkForm" method="POST"
+                    action="{{ url_for('sugestoes_de_tratamento_func') }}">
                     <fieldset>
                         <legend>Modalidade</legend>
                         <div class="form-group form-inline">
@@ -196,7 +200,7 @@
                                         Dias entre a aplicação e o próximo plantio:
                                     </label>
                                     <input type="number" class="form-control" id="plantioDias" v-model="plantioDias"
-                                        name="plantioDias" min="1" max="600" placeholder="30" step="1" />
+                                        name="plantioDias" min="0" max="600" placeholder="30" step="1" />
                                 </div>
                                 <div class="col-12 col-md-6 form-group" v-show="show.catacao">
                                     <label for="catacao" class="catacao">Custo da Catação:</label>
@@ -206,7 +210,7 @@
                                             <span class="input-group-text" id="basic-addon1">R$</span>
                                         </div>
                                         <input v-model="catacao" type="number" id="catacao" name="catacao" min="30.0"
-                                            max="5000.0" placeholder="450.0" class="form-control" />
+                                            max="5000.0" placeholder="450.0" step="10" class="form-control" />
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="basic-addon2">por ha</span>
                                         </div>
@@ -224,18 +228,15 @@
                                         <option disabled selected value id="errada">
                                             Selecione
                                         </option>
-                                        <!-- {% for mato in matos %}
-                            <option value={{ mato }}>{{ mato }}</option>
-                            {% endfor %} -->
-                                        <option v-for="mato in matos" :value="mato" :key="mato">
-                                            {{mato}}
-                                        </option>
+                                        {% for mato in matos %}
+                                        <option value={{ mato }}>{{ mato }}</option>
+                                        {% endfor %}
                                     </select>
                                     <div class="text-right input-group-append">
                                         <button type="button" class="btn btn-outline-success" @click="addMato()">
                                             Adicionar
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger" onclick="resetForm()">
+                                        <button type="button" class="btn btn-outline-danger" @click="resetMatos()">
                                             Limpar tudo
                                         </button>
                                     </div>
@@ -249,8 +250,9 @@
 
                                     <div class="form-group">
                                         <label :for="'pre_' + mato.name"><b>Pré</b></label>
-                                        <input type="checkbox" :id="'pre_' + mato.name" name="'pre_' + mato.name" value="sim"
-                                            class="PRE" v-model="mato.pre" class="form-control" />
+                                        <input type="checkbox" :id="'pre_' + mato.name" :name="'pre_' + mato.name"
+                                            value="sim" class="PRE" v-model="mato.pre" class="form-control"
+                                            @change="setRadioPressao(mato.name)" />
                                     </div>
                                     <div class="form-group">
                                         <label>Pressão:</label>
@@ -259,20 +261,22 @@
                                                 <input type="radio" :id="'baixa_' + mato.name"
                                                     :name="'pressao_' + mato.name" :value="'pressao_baixa_' + mato.name"
                                                     disabled v-model="mato.pressao" />
-                                                <label class="form-check-label" :for="'pressao_baixa_' + mato.name">Baixa</label>
+                                                <label class="form-check-label"
+                                                    :for="'baixa_' + mato.name">Baixa</label>
                                             </div>
                                             <div class="form-check">
                                                 <input type="radio" :id="'media_' + mato.name"
                                                     :name="'pressao_' + mato.name" :value="'pressao_media_' + mato.name"
                                                     disabled v-model="mato.pressao" />
-                                                <label class="form-check-label" :for="'pressao_media_' + mato.name">Média</label>
+                                                <label class="form-check-label"
+                                                    :for="'media_' + mato.name">Média</label>
                                             </div>
 
                                             <div class="form-check">
                                                 <input type="radio" :id="'alta_' + mato.name"
                                                     :name="'pressao_' + mato.name" :value="'pressao_alta_' + mato.name"
                                                     disabled v-model="mato.pressao" />
-                                                <label class="form-check-label" :for="'pressao_alta_' + mato.name">Alta</label>
+                                                <label class="form-check-label" :for="'alta_' + mato.name">Alta</label>
                                             </div>
                                         </div>
                                     </div>
@@ -281,7 +285,7 @@
                                     <div class="form-group">
                                         <label :for="'pos_' + mato.name"><b>Pós</b></label>
                                         <input type="checkbox" :id="'pos_' + mato.name" :name="'pos_' + mato.name"
-                                            value="sim" v-model="mato.pos" />
+                                            value="sim" v-model="mato.pos" @change="setRadioEstadio(mato.name)" />
                                     </div>
                                     <div class="form-group">
                                         <label>Estádio:</label>
@@ -291,14 +295,16 @@
                                                     :name="'estadio_' + mato.name"
                                                     :value="'pos_estadio_inicial_' + mato.name" disabled
                                                     v-model="mato.estadio" />
-                                                <label class="form-check-label" :for="'inicial_' + mato.name">Inicial</label>
+                                                <label class="form-check-label"
+                                                    :for="'inicial_' + mato.name">Inicial</label>
                                             </div>
                                             <div class="form-check">
                                                 <input type="radio" :id="'medio_' + mato.name"
                                                     :name="'estadio_' + mato.name"
                                                     :value="'pos_estadio_medio_' + mato.name" disabled
                                                     v-model="mato.estadio" />
-                                                <label class="form-check-label" :for="'medio_' + mato.name">Médio</label>
+                                                <label class="form-check-label"
+                                                    :for="'medio_' + mato.name">Médio</label>
                                             </div>
 
                                             <div class="form-check">
@@ -306,7 +312,8 @@
                                                     :name="'estadio_' + mato.name"
                                                     :value="'pos_estadio_tardio_' + mato.name" disabled
                                                     v-model="mato.estadio" />
-                                                <label class="form-check-label" :for="'tardio_' + mato.name">Tardio</label>
+                                                <label class="form-check-label"
+                                                    :for="'tardio_' + mato.name">Tardio</label>
                                             </div>
                                         </div>
                                     </div>
@@ -388,3 +395,4 @@
 <script src="./script.js"></script>
 
 </html>
+{% endblock %}

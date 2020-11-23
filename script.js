@@ -6,7 +6,6 @@ var app = new Vue({
     teorMatOrg: 0,
     texturaSolo: 0,
     epoca: 0,
-    estadioCana: 0,
     varSensivel: 0,
     palha: 0,
     novaCultura: 0,
@@ -20,12 +19,10 @@ var app = new Vue({
     AltaPressaoEfMin: 95,
     eMinPos: 95,
     show: {
-      modalidade: false,
       estadioCana: false,
       teorMatOrg: false,
       texturaSolo: false,
       epoca: false,
-      estadioCana: false,
       varSensivel: false,
       palha: false,
       novaCultura: false,
@@ -37,91 +34,107 @@ var app = new Vue({
     },
     matosArray: [],
     selectedMato: null,
-    matos: ["Mato1", "Mato2"],
     errors: [],
   },
   watch: {
-    modalidade: function (val) {
-      (this.show.estadioCana = this.showWhen("ppi")),
-        (this.show.teorMatOrg = this.showWhen(
-          "ppi",
-          "preMPB",
-          "posMPB",
-          "canaSoca",
-          "canaPlanta",
-          "quebraLombo",
-          "sequencial",
-          "dessecaDesinfesta"
-        )),
-        (this.show.texturaSolo = this.showWhen(
-          "ppi",
-          "preMPB",
-          "posMPB",
-          "canaSoca",
-          "canaPlanta",
-          "quebraLombo",
-          "sequencial",
-          "dessecaDesinfesta"
-        )),
-        (this.show.epoca = this.showWhen(
-          "preMPB",
-          "posMPB",
-          "canaSoca",
-          "canaPlanta",
-          "quebraLombo",
-          "sequencial"
-        )),
-        (this.show.estadioCana = this.showWhen("canaSoca", "canaPlanta")),
-        (this.show.varSensivel = this.showWhen(
-          "canaSoca",
-          "canaPlanta",
-          "quebraLombo",
-          "sequencial"
-        )),
-        (this.show.palha = this.showWhen("canaSoca")),
-        (this.show.novaCultura = this.showWhen("canaSoca", "sequencial")),
-        (this.show.incorp = this.showWhen("ppi", "quebraLombo")),
-        (this.show.revolvimento = this.showWhen("ppi", "canaPlanta")),
-        (this.show.areaRestrita = this.showWhen(
-          "ppi",
-          "preMPB",
-          "posMPB",
-          "canaSoca",
-          "canaPlanta",
-          "dessecaDesinfesta"
-        )),
-        (this.show.plantioDias = this.showWhen("ppi", "dessecaDesinfesta")),
-        (this.show.catacao = this.showWhen(
-          "ppi",
-          "preMPB",
-          "posMPB",
-          "canaSoca",
-          "canaPlanta",
-          "quebraLombo",
-          "sequencial",
-          "dessecaDesinfesta"
-        ));
+    modalidade: function () {
+      this.show.estadioCana = this.showWhen("ppi");
+      this.show.teorMatOrg = this.showWhen(
+        "ppi",
+        "preMPB",
+        "posMPB",
+        "canaSoca",
+        "canaPlanta",
+        "quebraLombo",
+        "sequencial",
+        "dessecaDesinfesta"
+      );
+      this.show.texturaSolo = this.showWhen(
+        "ppi",
+        "preMPB",
+        "posMPB",
+        "canaSoca",
+        "canaPlanta",
+        "quebraLombo",
+        "sequencial",
+        "dessecaDesinfesta"
+      );
+      this.show.epoca = this.showWhen(
+        "preMPB",
+        "posMPB",
+        "canaSoca",
+        "canaPlanta",
+        "quebraLombo",
+        "sequencial"
+      );
+      this.show.estadioCana = this.showWhen("canaSoca", "canaPlanta");
+      this.show.varSensivel = this.showWhen(
+        "canaSoca",
+        "canaPlanta",
+        "quebraLombo",
+        "sequencial"
+      );
+      this.show.palha = this.showWhen("canaSoca");
+      this.show.novaCultura = this.showWhen("canaSoca", "sequencial");
+      this.show.incorp = this.showWhen("ppi", "quebraLombo");
+      this.show.revolvimento = this.showWhen("ppi", "canaPlanta");
+      this.show.areaRestrita = this.showWhen(
+        "ppi",
+        "preMPB",
+        "posMPB",
+        "canaSoca",
+        "canaPlanta",
+        "dessecaDesinfesta"
+      );
+      this.show.plantioDias = this.showWhen("ppi", "dessecaDesinfesta");
+      this.show.catacao = this.showWhen(
+        "ppi",
+        "preMPB",
+        "posMPB",
+        "canaSoca",
+        "canaPlanta",
+        "quebraLombo",
+        "sequencial",
+        "dessecaDesinfesta"
+      );
     },
   },
   methods: {
     checkForm(e) {
-      e.preventDefault();
       this.errors = [];
-      if (this.catacao <= 0 || this.plantioDias <= 0) {
+      if (this.catacao <= 0) {
         this.errors.push("Campo catação e Dias têm que ser maior que 0(zero).");
       }
       if (this.matosArray.length <= 0) {
         this.errors.push("Pelo menos um mato deve ser selecionado.");
       }
-
-      if(!this.matosArray.some(mato => mato.pressao || mato.estadio)){
-        this.errors.push("É necessário selecionar uma pressão ou estádio.")
+      if (this.matosArray.some((mato) => !mato.pre && !mato.pos)) {
+        this.errors.push("É necessário selecionar um pré ou pós.");
       }
-      swal.fire({
-        icon: 'error',
-        title: 'Falha ao enviar formulário',
-        text: this.errors.join(' '),
-      })
+
+      if (this.matosArray.some((mato) => mato.pre && !mato.pressao)) {
+        this.errors.push("É necessário selecionar um pressão.");
+      }
+      if (this.matosArray.some((mato) => mato.pos && !mato.estadio)) {
+        this.errors.push("É necessário selecionar uma estádio.");
+      }
+      for (const item of Object.entries(this.show)){
+        if (!item[1]) {
+          this[item[0]] = "nao";
+        } else if (this[item[0]] == "") {
+          this.errors.push(`Você possui campos não preenchidos.`);
+          break
+        }  
+      }
+      if (this.errors.length > 0) {
+        swal.fire({
+          icon: "error",
+          title: "Falha ao enviar formulário",
+          text: this.errors.join(" "),
+        });
+        e.preventDefault();
+        return;
+      }
     },
 
     showWhen(...array) {
@@ -144,7 +157,30 @@ var app = new Vue({
         1
       );
     },
-    
+    resetMatos() {
+      this.matosArray = []
+    },
+
+    setRadioPressao(selectedMato) {
+      radios = document.getElementsByName("pressao_" + selectedMato);
+      this.matosArray[
+        this.matosArray.findIndex((mato) => mato.name === selectedMato)
+      ].pressao = null;
+      radios.forEach((radio) => {
+        radio.checked = false;
+        radio.disabled = !radio.disabled;
+      });
+    },
+    setRadioEstadio(selectedMato) {
+      radios = document.getElementsByName("estadio_" + selectedMato);
+      this.matosArray[
+        this.matosArray.findIndex((mato) => mato.name === selectedMato)
+      ].estadio = null;
+      radios.forEach((radio) => {
+        radio.checked = false;
+        radio.disabled = !radio.disabled;
+      });
+    },
   },
   computed: {
     checkPre: function () {
