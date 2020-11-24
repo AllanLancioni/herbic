@@ -102,35 +102,49 @@ var app = new Vue({
   methods: {
     checkForm(e) {
       this.errors = [];
+      let foundCondition;
       if (this.catacao <= 0) {
         this.errors.push("Campo catação e Dias têm que ser maior que 0(zero).");
       }
       if (this.matosArray.length <= 0) {
-        this.errors.push("Pelo menos um mato deve ser selecionado.");
-      }
-      if (this.matosArray.some((mato) => !mato.pre && !mato.pos)) {
-        this.errors.push("É necessário selecionar um pré ou pós.");
+        this.errors.push("Matologia: Pelo menos um mato deve ser selecionado.");
       }
 
-      if (this.matosArray.some((mato) => mato.pre && !mato.pressao)) {
-        this.errors.push("É necessário selecionar um pressão.");
+      foundCondition = this.matosArray.find((mato) => !mato.pre && !mato.pos); 
+      if (foundCondition) {
+        this.errors.push(`Matologia - ${foundCondition.name}: É necessário selecionar um pré ou pós.`);
       }
-      if (this.matosArray.some((mato) => mato.pos && !mato.estadio)) {
-        this.errors.push("É necessário selecionar uma estádio.");
+
+      foundCondition = this.matosArray.find((mato) => mato.pre && !mato.pressao);
+      if (foundCondition) {
+        this.errors.push(`Matologia - ${foundCondition.name}: É necessário selecionar um pressão.`);
       }
+
+      foundCondition = this.matosArray.find((mato) => mato.pre && !mato.pressao);
+      if (foundCondition) {
+        this.errors.push(`Matologia - ${foundCondition.name}: É necessário selecionar uma estádio.`);
+      }
+
+
+      foundCondition = 0;
       for (const item of Object.entries(this.show)){
         if (!item[1]) {
           this[item[0]] = "nao";
-        } else if (this[item[0]] == "") {
-          this.errors.push(`Você possui campos não preenchidos.`);
-          break
+        } else if (!this[item[0]]) {
+          foundCondition++;
         }  
       }
+
+      if (foundCondition > 0) {
+        this.errors.push(`Características da Área e do Plantio: Você possui ${foundCondition} campos não preenchidos.`);
+      }
+
       if (this.errors.length > 0) {
         swal.fire({
           icon: "error",
           title: "Falha ao enviar formulário",
-          text: this.errors.join(" "),
+          html: this.errors.join("<br>"),
+          timer: null
         });
         e.preventDefault();
         return;
